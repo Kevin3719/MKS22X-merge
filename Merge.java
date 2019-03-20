@@ -9,31 +9,31 @@ public class Merge{
     int median = (lo + hi) / 2;
     mergesort(data,lo,median);
     mergesort(data, median + 1,hi);
+    merge(data, lo, median, hi);
   }
 
 
 
 
   // merge 2 already sorted list
-  public static int[] merge(int[] list1, int[] list2) {
+  public static int[] merge(int[] data,int lo,int median, int high) {
     int temp = 0;
     int counter = 0;
-    int[] output = new int[list1.length + list2.length];
     int i = 0;
-    while(i < list1.length) {
-      if( list1[i] <= list2[counter]) {
-        output[i + counter] = list1[i];
+    while(i < median - lo + 1) {
+      if( data[lo] <= data[counter + median]) {
+        data[i + counter + lo] = data[lo];
         i += 1;
       }
       else {
-        output[i + counter] = list2[counter];
+        data[i + counter + lo] = data[median + counter];
         counter += 1;
       }
     }
-    while(counter < list2.length) {
-      output[i + counter] = list2[counter];
+    while(counter + median < high - median) {
+      data[i + counter + lo] = data[median + counter];
       counter += 1;
     }
-  return output;
+  return data;
   }
 }
