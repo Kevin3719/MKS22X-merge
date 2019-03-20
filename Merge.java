@@ -7,45 +7,51 @@ public class Merge{
       return;
     }
     int median = (lo + hi) / 2;
-    mergesort(data,lo,median);
-    mergesort(data, median + 1,hi);
-    merge(data, lo, median, hi);
+    int[] left = new int[median - lo + 1];
+    for(int i = 0; i < left.length; i++) {
+      left[i] = data[lo + i];
+    }
+    mergesort(left,0, left.length - 1);
+    int[] right = new int[hi - median];
+    for(int i = 0; i < right.length;i++ ){
+      right[i] = data[median + i + 1];
+    }
+    mergesort(right, 0, right.length - 1);
+    merge(data,left, right);
   }
 
 
 
 
   // merge 2 already sorted list
-  public static int[] merge(int[] data,int lo,int median, int high) {
-    int locounter = 0;
-    int counter = 0;
+  public static void merge(int[] data, int[] list1, int[] list2) {
+    int leftc = 0;
+    int rightc = 0;
     int i = 0;
-    int[] temp = new int[high - lo + 1];
-    while(median + counter <= high && i < temp.length && lo + locounter < median) {
-      
-      if(data[lo + locounter] > data[median + counter]) {
-        temp[i] = data[median + counter];
-        counter += 1;
+      while(leftc < list1.length && rightc < list2.length) {
+        if (list1[leftc] <= list2[rightc]) {
+          data[i] = list1[leftc];
+          leftc += 1;
+        }
+        else {
+          data[i] = list2[rightc];
+          rightc += 1;
+        }
+        i += 1;
       }
-      else {
-        temp[i] = data[lo +locounter];
-        locounter += 1;
+      while (leftc < list1.length) {
+        data[i] = list1[leftc];
+        i += 1;
+        leftc += 1;
       }
-      i += 1;
-    }
-    if (i > median) {
-    while (i < temp.length) {
-      temp[i] = data[i + counter];
-      i += 1;
-    }
-  }
-  print(temp);
-  for (int j = 0; j < temp.length; j++) {
+      while (rightc < list2.length) {
+        data[i] = list2[rightc];
+        i += 1;
+        rightc += 1;
+      }
 
-    data[lo + j] = temp[j];
-  }
-  return data;
-}
+    }
+
 
   public static String print(int nums[]) {
     String output = "";
