@@ -1,6 +1,20 @@
 public class Merge{
   public static void mergesort(int[]data){
+
   }
+  public static void mergesort(int[] data,int lo,int hi) {
+    if(lo >= hi) {
+      return;
+    }
+    int median = (lo + hi) / 2;
+    mergesort(data,lo,median);
+    mergesort(data, median + 1,hi);
+  }
+
+
+
+
+  // merge 2 already sorted list
   public static int[] merge(int[] list1, int[] list2) {
     int temp = 0;
     int counter = 0;
