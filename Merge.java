@@ -1,9 +1,12 @@
+import java.util.*;
+import java.io.*;
 public class Merge{
   public static void mergesort(int[]data){
     mergesort(data,0,data.length - 1);
   }
   public static void mergesort(int[] data,int lo,int hi) {
-    if(lo >= hi) {
+    if((hi-lo)<=120){
+      insertion(data,lo,hi);
       return;
     }
     int median = (lo + hi) / 2;
@@ -61,4 +64,16 @@ public class Merge{
     System.out.println(output);
     return output;
   }
+  public static void insertion(int[] data, int lo, int hi) {
+    for(int i = lo+1; i<hi+1; i++){
+      int temp = data[i];
+      int j = i;
+      while(j>lo && data[j-1]>temp){
+        data[j]=data[j-1];
+        data[j-1]=temp;
+        j -= 1;
+      }
+  }
+}
+  
 }
